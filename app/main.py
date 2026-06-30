@@ -3,7 +3,7 @@ class Distance:
         self.km = km
 
     def __str__(self) -> str:
-        return f"Distance: {self.km}"
+        return f"Distance: {self.km} kilometers."
 
     def __repr__(self) -> str:
         return f"Distance(km={self.km})"
@@ -22,12 +22,20 @@ class Distance:
             self.km += other.km
         elif isinstance(other, (int, float)):
             self.km += other
+        else:
+            return NotImplemented
 
         return self
 
     def __mul__(self, other: int | float) -> "Distance":
         if isinstance(other, (int, float)):
-            return Distance(round(self.km * other, 2))
+            return Distance(self.km * other)
+
+        return NotImplemented
+
+    def __truediv__(self, other: int | float) -> "Distance":
+        if isinstance(other, (int, float)):
+            return Distance(round(self.km / other, 2))
 
         return NotImplemented
 
